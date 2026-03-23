@@ -8,6 +8,7 @@ const methodOverride = require('method-override');
 const app = express()
 
 app.set('view engine', 'ejs');
+app.set('views', __dirname);
 
 const port = 3000
 
