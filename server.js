@@ -11,11 +11,17 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname);
 
 const port = 3000
+user=[]
 
 app.get('/',(req,res)=>{
     res.render('index.ejs')
 })
-
+app.get('/login',(req,res)=>{
+    res.render('login.ejs')
+})
+app.get('/register',(req,res)=>{
+    res.render('register.ejs')
+})
 const server = app.listen(port,()=>{
     console.log('le serveur marche ')
 })
