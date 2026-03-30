@@ -1,5 +1,4 @@
 const express = require('express');
-const fs = require('fs');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const flash = require('connect-flash');
@@ -36,10 +35,10 @@ app.use(methodOverride('_method'));
 
 
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('index', { user: req.user });
 });
 
-app.get('/login', (req, res) => {
+app.get('/login', checkNotAuthenticated, (req, res) => {
     res.render('login', {
         messages: {
             error: req.flash('error'),
@@ -48,16 +47,16 @@ app.get('/login', (req, res) => {
     });
 });
 
-app.post('/login', passport.authenticate('local', {
+app.post('/login',checkNotAuthenticated, passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true
 }));
 
-app.get('/register', (req, res) => {
+app.get('/register', checkNotAuthenticated,(req, res) => {
     res.render('register');
 });
-app.post('/register', async (req, res) => {
+app.post('/register',checkNotAuthenticated, async (req, res) => {
     try{
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         users.push({
@@ -76,6 +75,28 @@ app.post('/register', async (req, res) => {
     console.log(users)
 });
 
+app.delete('/logout', checkAuthenticated, (req, res) => {
+    req.logOut((err) => {
+        if (err) {
+            console.error('Error occurred while logging out:', err);
+        }
+        res.redirect('/login');
+    });
+});
+
+function checkAuthenticated(req, res, next){
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/login');
+}
+
+function checkNotAuthenticated(req, res, next){
+    if (req.isAuthenticated()) {
+        return res.redirect('/');
+    }
+    next();
+}
 
 
 const server = app.listen(port, () => {
