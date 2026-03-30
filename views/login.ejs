@@ -39,9 +39,11 @@
                             <input type="password" name="password" class="w-full mt-2 py-4 px-6 bg-white rounded-xl">
                         </div>
 
-                        <% if (messages.error) { %>
+                        <% if (messages.error && messages.error.length) { %>
                             <div class="p-6 bg-red-500 text-white rounded-xl m-2">
-                                <p class="p-2"> <%= messages.error %> </p>
+                                <% messages.error.forEach(function(message) { %>
+                                    <p class="p-2"><%= message %></p>
+                                <% }); %>
                             </div>
                         <% } %>
                         <div> 

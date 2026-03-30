@@ -12,25 +12,40 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 const initializePassport = require('./passport-config');
+const users = [];
+
 initializePassport(
     passport,
-    username => user.find(user => user.username === username),
-    id => user.find(user => user.id === id)
-
-
- )
-
+    username => users.find(user => user.username === username),
+    id => users.find(user => user.id === id)
+)
 
 const port = 3000;
-const user = [];
-app.set('view-engine','ejs');
-app.use(express.express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: false}));
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(methodOverride('_method'));
+
+
+
+
 app.get('/', (req, res) => {
     res.render('index');
 });
 
 app.get('/login', (req, res) => {
-    res.render('login');
+    res.render('login', {
+        messages: {
+            error: req.flash('error'),
+            success: req.flash('success')
+        }
+    });
 });
 
 app.post('/login', passport.authenticate('local', {
@@ -45,7 +60,7 @@ app.get('/register', (req, res) => {
 app.post('/register', async (req, res) => {
     try{
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        user.push({
+        users.push({
             id: Date.now().toString(),
             username: req.body.username,
             firstname: req.body.firstname,
@@ -58,7 +73,10 @@ app.post('/register', async (req, res) => {
         res.redirect('/register');
 
     }
+    console.log(users)
 });
+
+
 
 const server = app.listen(port, () => {
     console.log('le serveur marche ');
