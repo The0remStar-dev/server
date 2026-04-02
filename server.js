@@ -1,5 +1,5 @@
 const express = require('express');
-const bcrypt = require('bcryptjs');
+const bcrypt = require ('bcryptjs');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
@@ -36,6 +36,20 @@ app.use(methodOverride('_method'));
 
 app.get('/', (req, res) => {
     res.render('index', { user: req.user });
+});
+
+app.get('/formulaire', (req, res) => {
+    res.render('formulaire', { success: null, formData: {} });
+});
+
+app.post('/formulaire', (req, res) => {
+    const { name, email, message } = req.body;
+    console.log('Formulaire reçu :', { name, email, message });
+
+    res.render('formulaire', {
+        success: 'Merci, votre formulaire a bien été envoyé.',
+        formData: { name, email, message }
+    });
 });
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
