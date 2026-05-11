@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Phare Littr\u00e9 - Accueil</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <img class="logo" src="logo.png" alt="logo" width="70px">
+            <h1>Bienvenue</h1>
+        </header>
+
+        <div class="w3-container">
+            <p><center>Vous êtes connecté avec succès!</center></p>
+            <p><center>
+                <a href="/reception" class="btn-reception">Boîte de réception</a>
+            </center></p>
+            <p><center>
+                <form method="POST" action="/logout?_method=DELETE" style="display:inline;">
+                    <button type="submit" class="btn-login">Déconnexion</button>
+                </form>
+            </center></p>
+        </div>
+
+        <style>
+            body {
+                margin: 0; 
+                height: 100vh; 
+                background-image: url('fond_site.png');
+                background-size: cover;       
+                background-position: center;  
+                background-repeat: no-repeat;
+            }
+
+            .btn-login {
+                background-color: #008279;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+
+            .btn-login:hover {
+                background-color: #006b62;
+            }
+
+            .btn-reception {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 20px;
+                text-decoration: none;
+                border-radius: 5px;
+                font-size: 16px;
+                margin-right: 10px;
+            }
+
+            .btn-reception:hover {
+                background-color: #45a049;
+            }
+        </style>
+    </body>
+</html>

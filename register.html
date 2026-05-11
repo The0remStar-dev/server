@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Phare Littré - Inscription</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <img class="logo" src="logo.png" alt="logo" width="70px">
+            <h1 class="connexion">INSCRIPTION</h1>
+        </header>
+
+        <style>
+            body {
+                margin: 0; 
+                height: 100vh; 
+                background-image: url('fond_site.png');
+                background-size: cover;       
+                background-position: center;  
+                background-repeat: no-repeat;
+            }
+        </style>
+
+        <div class="w3-container w3-blue-grey">
+            <div class="w3-padding-16">
+                <form method="POST" action="/register">
+                    <p><center><label for="username">USERNAME</label></center></p>
+                    <center><input type="text" required autofocus id="username" name="username"><br></center>
+
+                    <p><center><label for="password">MOT DE PASSE</label></center></p>
+                    <center><input type="password" required id="password" name="password"><br></center>
+
+                    <p><center><label for="password-confirm">CONFIRMER MOT DE PASSE</label></center></p>
+                    <center><input type="password" required id="password-confirm" name="passwordConfirm"><br></center>
+
+                    <p><center><button type="submit" class="btn-register">S'inscrire</button></center></p>
+                </form>
+
+                <p><center><a href="/login"><button type="button" class="btn-login">Retour à la connexion</button></a></center></p>
+
+                <style>
+                    .btn-login, .btn-register {
+                        background-color: #008279;
+                        color: white;
+                        padding: 10px 20px;
+                        border: none;
+                        border-radius: 5px;
+                        font-size: 16px;
+                        cursor: pointer;
+                        margin: 5px;
+                    }
+
+                    .btn-login:hover, .btn-register:hover {
+                        background-color: #006b62;
+                    }
+                </style>
+            </div>
+        </div>
+
+        <script>
+            document.querySelector('form').addEventListener('submit', function(e) {
+                const password = document.getElementById('password').value;
+                const passwordConfirm = document.getElementById('password-confirm').value;
+                
+                if (password !== passwordConfirm) {
+                    e.preventDefault();
+                    alert('Les mots de passe ne correspondent pas!');
+                }
+            });
+        </script>
+    </body>
+</html>

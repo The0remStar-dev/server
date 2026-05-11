@@ -1,0 +1,69 @@
+header {
+    display: flex;
+    justify-content:space-center;
+    align-items:end;
+    background-color: rgba(220, 220, 220, 0.7);
+    backdrop-filter: blur(5px);
+    padding: 10px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    position:relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 5px 6px rgba(0, 0, 0, 0.2);
+        }
+
+    body {
+    margin: 0;
+    height: 100vh;
+    background-image: url('fond_site.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.connexion{
+    text-align: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.erreur
+{
+    color: red;
+    font-size: 18px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.connexion-form {
+    text-align: center;
+    padding: 40px 60px !important;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    width: fit-content;
+}
+
+.connexion-form form p {
+    margin: 15px 0 8px 0;
+    font-weight: 600;
+}
+
+.connexion-form input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.connexion-form input:focus {
+    outline: none;
+    border-color: #008279;
+    box-shadow: 0 0 5px rgba(0, 130, 121, 0.3);
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boîte de réception</title>
+    <link rel="stylesheet" href="./css/general.css">
+    <link rel="stylesheet" href="./css/reception.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <img class="logo" src="img/logo.png" alt="logo" width="70px">
+    </header>
+
+    <div class="container">
+        <div class="header">Boîte de réception</div>
+        <div id="emails-container">
+            <!-- Emails will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        let emails = [];
+
+        async function loadEmails() {
+            try {
+                const response = await fetch('/api/emails');
+                if (!response.ok) throw new Error('Failed to load emails');
+                emails = await response.json();
+                renderEmails();
+            } catch (error) {
+                console.error('Error loading emails:', error);
+                // Fallback to hardcoded for now
+                emails = [
+                    { id: 0, sender: 'anonyma', subject: 'j\'ai ete victime de discrimination a cause de ma couleur de peau', content: 'Bonjour,<br><br>Je me permets de vous contacter car j\'ai récemment été victime d\'une discrimination à cause de ma couleur de peau. Je souhaiterais en parler et comprendre quelles démarches je peux entreprendre.<br><br>Merci de me répondre dans les meilleurs délais.<br><br>Cordialement,<br>Anonyma', date: '26 avr', time: '10:15', read: false },
+                    { id: 1, sender: 'Bob', subject: 'Facture disponible', content: 'Bonjour,<br><br>Votre facture du mois d\'avril est désormais disponible. Vous pouvez la consulter et la télécharger depuis votre espace client.<br><br>N\'hésitez pas à nous contacter si vous avez la moindre question.<br><br>Cordialement,<br>Bob', date: '25 avr', time: '06:50', read: false },
+                    { id: 2, sender: 'Service Client', subject: 'Bienvenue !', content: 'Bonjour et bienvenue !<br><br>Votre compte a bien été créé. Vous pouvez dès à présent accéder à tous nos services depuis votre espace personnel.<br><br>Si vous avez des questions, notre équipe est disponible du lundi au vendredi de 9h à 18h.<br><br>À bientôt,<br>Le Service Client', date: '24 avr', time: '09:00', read: true }
+                ];
+                renderEmails();
+            }
+        }
+
+        function renderEmails() {
+            const container = document.getElementById('emails-container');
+            container.innerHTML = '';
+            emails.forEach(email => {
+                const emailDiv = document.createElement('div');
+                emailDiv.className = 'email' + (email.read ? '' : ' unread');
+                emailDiv.onclick = () => toggle(emailDiv, email.id);
+                emailDiv.innerHTML = `
+                    <span class="dot ${email.read ? 'read' : ''}"></span>
+                    <div class="avatar" style="background:${getAvatarColor(email.sender)}; color:${getAvatarTextColor(email.sender)};">${getInitials(email.sender)}</div>
+                    <div class="email-body">
+                        <div class="sender">${email.sender}</div>
+                        <div class="subject">${email.subject}</div>
+                    </div>
+                    <div class="meta">
+                        <span class="date">${email.date}</span>
+                        <span class="heure">${email.time}</span>
+                    </div>
+                `;
+                container.appendChild(emailDiv);
+
+                const viewDiv = document.createElement('div');
+                viewDiv.className = 'view';
+                viewDiv.id = `msg-${email.id}`;
+                viewDiv.innerHTML = `
+                    <div class="view-inner">
+                        <div class="view-back" onclick="closeView(event, ${email.id})">← Retour</div>
+                        <div class="view-title">${email.subject}</div>
+                        <div class="view-from">De : ${email.sender} · ${email.date} à ${email.time}</div>
+                        <div class="view-sep"></div>
+                        <div class="view-content">${email.content}</div>
+                    </div>
+                `;
+                container.appendChild(viewDiv);
+            });
+        }
+
+        function toggle(row, id) {
+            const msg = document.getElementById(`msg-${id}`);
+            const isOpen = msg.classList.contains('open');
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('open'));
+            document.querySelectorAll('.email').forEach(e => e.style.background = '');
+            if (!isOpen) {
+                msg.classList.add('open');
+                row.classList.remove('unread');
+                row.style.background = '#f5f5f5';
+                // Mark as read on backend
+                markAsRead(id);
+            }
+        }
+
+        async function markAsRead(id) {
+            try {
+                await fetch(`/api/emails/${id}/read`, { method: 'POST' });
+                // Update local state
+                const email = emails.find(e => e.id === id);
+                if (email) email.read = true;
+            } catch (error) {
+                console.error('Error marking as read:', error);
+            }
+        }
+
+        function closeView(e, id) {
+            e.stopPropagation();
+            document.getElementById(`msg-${id}`).classList.remove('open');
+            document.querySelectorAll('.email')[id].style.background = '';
+        }
+
+        function getInitials(sender) {
+            return sender.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2);
+        }
+
+        function getAvatarColor(sender) {
+            const colors = ['#E1F5EE', '#E6F1FB', '#F1EFE8'];
+            return colors[sender.length % colors.length];
+        }
+
+        function getAvatarTextColor(sender) {
+            const colors = ['#0F6E56', '#185FA5', '#5F5E5A'];
+            return colors[sender.length % colors.length];
+        }
+
+        // Load emails on page load
+        window.onload = loadEmails;
+    </script>
+
+</body>
+</html>

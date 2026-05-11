@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Phare Littré</title>
+        <link rel="stylesheet" href="style_2.css">
+    </head>
+    <body>
+        <header>
+            <img class="logo" src="image/logo.png" alt="logo" width="70px">
+
+            <h1 class="connexion">CONNEXION</h1>
+
+        </header>
+
+        <style>
+            body {
+                margin: 0; 
+                height: 100vh; 
+                background-image: url('image/fond_site.png');
+                background-size: cover;       
+                background-position: center;  
+                background-repeat: no-repeat;
+                display: flex;
+                flex-direction: column;
+            }
+
+            main {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex: 1;
+                flex-direction: column;
+            }
+        </style>
+
+        <main>
+            <div class="w3-container w3-blue-grey connexion-form">
+                <div class="w3-padding-16">
+                    <p><label for="nom">EMAIL</label></p>
+                    <input type="text" required autofocus id="nom" name="nom"><br>
+
+                    <p><label for="prenom">MOT DE PASSE</label></p>
+                    <input type="text" required id="prenom" name="prenom"><br>
+                </div>
+
+                <style>
+                    .btn-login {
+                        background-color: #008279;
+                        color: white;
+                        padding: 10px 20px;
+                        border: none;
+                        border-radius: 5px;
+                        font-size: 16px;
+                        cursor: pointer;
+                        width: 100%;
+                    }
+
+                    .btn-login:hover {
+                        background-color: #006b62;
+                    }
+                </style>
+
+                <p><button class="btn-login">Connexion</button></p>
+            </div>
+            
+            <h2 class="erreur">Email / Mot de passe incorrect, veuillez réessayer.</h2>
+        </main>
+       
+                            
+    </body>
+</html>
