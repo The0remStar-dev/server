@@ -7,7 +7,7 @@
     </head>
     <body>
         <header>
-            <img class="logo" src="logo.png" alt="logo" width="70px">
+            <img class="logo" src="image/logo.png" alt="logo" width="70px">
             <h1>Bienvenue</h1>
         </header>
 
@@ -17,6 +17,9 @@
                 <a href="/reception" class="btn-reception">Boîte de réception</a>
             </center></p>
             <p><center>
+                <a href="/form" class="btn-reception">Formulaire de plainte</a>
+            </center></p>
+            <p><center>
                 <form method="POST" action="/logout?_method=DELETE" style="display:inline;">
                     <button type="submit" class="btn-login">Déconnexion</button>
                 </form>
@@ -24,15 +27,6 @@
         </div>
 
         <style>
-            body {
-                margin: 0; 
-                height: 100vh; 
-                background-image: url('fond_site.png');
-                background-size: cover;       
-                background-position: center;  
-                background-repeat: no-repeat;
-            }
-
             .btn-login {
                 background-color: #008279;
                 color: white;

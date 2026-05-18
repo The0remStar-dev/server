@@ -17,10 +17,23 @@ header {
     body {
     margin: 0;
     height: 100vh;
-    background-image: url('fond_site.png');
+    background-image: url('image/fond_site.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.error-main {
+    flex-direction: column;
 }
 
 .connexion{

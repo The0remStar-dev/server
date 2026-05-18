@@ -57,7 +57,7 @@ app.get('/login', checkNotAuthenticated, (req, res) => {
 
 app.post('/login',checkNotAuthenticated, passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/login',
+    failureRedirect: '/error_connexion.html',
     failureFlash: true
 }));
 
@@ -103,7 +103,7 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
         res.redirect('/login');
     } catch (e) {
         console.error('Registration error:', e);
-        res.redirect('/register');
+        res.redirect('/register?error=Registration%20failed');
     }
 });
 
@@ -118,6 +118,29 @@ app.delete('/logout', checkAuthenticated, (req, res) => {
 
 app.get('/reception', checkAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, 'reception.html'));
+});
+
+app.get('/form', checkAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, 'form.html'));
+});
+
+const submissions = [];
+
+app.post('/form', checkAuthenticated, (req, res) => {
+    const data = req.body;
+    if (!data || !data.mode || !data.message || (data.mode === 'identifie' && !data.name)) {
+        return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    const submission = {
+        id: submissions.length + 1,
+        mode: data.mode,
+        name: data.name || 'Anonyme',
+        message: data.message,
+        date: data.date || new Date().toISOString()
+    };
+    submissions.push(submission);
+    res.json({ status: 'success', submission });
 });
 
 app.get('/api/emails', checkAuthenticated, (req, res) => {

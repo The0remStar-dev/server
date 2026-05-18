@@ -13,59 +13,22 @@
 
         </header>
 
-        <style>
-            body {
-                margin: 0; 
-                height: 100vh; 
-                background-image: url('image/fond_site.png');
-                background-size: cover;       
-                background-position: center;  
-                background-repeat: no-repeat;
-                display: flex;
-                flex-direction: column;
-            }
-
-            main {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex: 1;
-                flex-direction: column;
-            }
-        </style>
-
-        <main>
+        <main class="error-main">
             <div class="w3-container w3-blue-grey connexion-form">
                 <div class="w3-padding-16">
-                    <p><label for="nom">EMAIL</label></p>
-                    <input type="text" required autofocus id="nom" name="nom"><br>
+                    <form method="POST" action="/login">
+                        <p><label for="username">USERNAME</label></p>
+                        <input type="text" required autofocus id="username" name="username"><br>
 
-                    <p><label for="prenom">MOT DE PASSE</label></p>
-                    <input type="text" required id="prenom" name="prenom"><br>
+                        <p><label for="password">MOT DE PASSE</label></p>
+                        <input type="password" required id="password" name="password"><br>
+
+                        <p><button type="submit" class="btn-login">Connexion</button></p>
+                    </form>
+
+                    <p><a href="/register"><button type="button" class="btn-register">S'inscrire</button></a></p>
+
                 </div>
-
-                <style>
-                    .btn-login {
-                        background-color: #008279;
-                        color: white;
-                        padding: 10px 20px;
-                        border: none;
-                        border-radius: 5px;
-                        font-size: 16px;
-                        cursor: pointer;
-                        width: 100%;
-                    }
-
-                    .btn-login:hover {
-                        background-color: #006b62;
-                    }
-                </style>
-
-                <p><button class="btn-login">Connexion</button></p>
-            </div>
-            
-            <h2 class="erreur">Email / Mot de passe incorrect, veuillez réessayer.</h2>
-        </main>
        
                             
     </body>

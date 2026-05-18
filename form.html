@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de contact</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <header>
+        <img class="logo" src="image/logo.png" alt="logo" width="100">
+        <button class="bouton2">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+            </svg>
+            Se connecter
+        </button>
+    </header>
+
+    <div class="container">
+        <h1>Formulaire de plainte</h1>
+        <p>
+            Ici vous pouvez signaler à l'administration des cas de violence, de harcèlement ou de discrimination.
+            Nous examinerons chaque cas et nous trouverons des solutions qui permettront à l'élève de se sentir
+            mieux dans l'établissement.
+        </p>
+        <form id="contactForm">
+            <div class="form-group" id="radio_option">
+                <label>Êtes-vous :</label>
+                <div class="radio-group">
+                    <input type="radio" id="anonymous" name="mode" value="anonyme_value" checked>
+                    <label for="anonymous">Anonyme</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="identifie" name="mode" value="identifie">
+                    <label for="identified">Avec mon identité</label>
+                </div>
+            </div>
+
+            <div class="form-group" id="nameInput" style="display: none;">
+                <label for="name">Votre nom</label>
+                <input type="text" id="texte_name" name="name" placeholder="Entrez votre nom">
+            </div>
+            <div class="form-group">
+                <label for="message">Votre message</label>
+                <textarea id="message" name="message" placeholder="Décrivez votre situation ici..."></textarea>
+            </div>
+
+            <p class="error-msg">erreur</p>
+
+            <button type="submit">Envoyer</button>
+        </form>
+
+        <div id="feedback" class="message"></div>
+    </div>
+
+    <script src="form.js"></script>
+</body>
+
+</html>
